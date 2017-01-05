@@ -15,7 +15,7 @@ var config = {
   module: {
     loaders: [{
       test: /\.js?$/,
-      exclude: [/node_modules/],
+      exclude: [/node_modules/, /libs/],
       loader: 'babel',
       query: {
         presets: ['es2015']
