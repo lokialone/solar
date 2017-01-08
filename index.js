@@ -1,8 +1,10 @@
+// import './demo.js'
 import Earth from './component/earth.js'
+let THREE = require('three')
 
-let earth = new Earth()
-earth_renderer = earth.getRenderer()
+
 let container = document.getElementById('container')
-renderer = new THREE.WebGLRenderer( {antialias: true})
-renderer.setSize(container.offsetWidth, container.offsetHeight)
-container.appendChild( earth_renderer.domElement)
+let earth = new Earth(container)
+let earth_renderer = earth.getRenderer()
+console.log(earth_renderer);
+container.appendChild(earth_renderer.domElement)

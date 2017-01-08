@@ -11,7 +11,7 @@ let onLoad = () => {
   let container = document.getElementById('container')
   renderer = new THREE.WebGLRenderer( {antialias: true})
   renderer.setSize(container.offsetWidth, container.offsetHeight)
-  container.appendChild( renderer.domElement)
+  container.appendChild(renderer.domElement)
 
   scene = new THREE.Scene()
 
