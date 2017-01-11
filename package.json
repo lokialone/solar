@@ -14,6 +14,7 @@
     "commitizen": "^2.9.5",
     "conventional-changelog-cli": "^1.2.0",
     "css-loader": "^0.25.0",
+    "cz-conventional-changelog": "^1.2.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "style-loader": "^0.13.1",
@@ -26,7 +27,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --hot --inline",
     "build": "webpack",
-    "changelog": "conconventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "keywords": [
     "three.js"
@@ -35,5 +36,10 @@
   "license": "ISC",
   "dependencies": {
     "three": "^0.83.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
