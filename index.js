@@ -7,3 +7,5 @@ let container = document.getElementById('container')
 let earth = new Earth(container)
 
 earth.init()
+// test commit
+console.log('test');
