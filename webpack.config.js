@@ -18,7 +18,7 @@ var config = {
       exclude: [/node_modules/, /libs/],
       loader: 'babel',
       query: {
-        presets: ['es2015']
+        presets: ['es2015', 'stage-2']
         }
       },
       {
