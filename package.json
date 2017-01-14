@@ -35,6 +35,7 @@
   "author": "lokialone",
   "license": "ISC",
   "dependencies": {
+    "stats": "^1.0.0",
     "three": "^0.83.0"
   },
   "config": {
