@@ -11,8 +11,10 @@ import * as THREE from './libs/three.js'
 // let THREE = require('three')
 import scene from './component/scene'
 import Earth from './component/earth_new.js'
+import Moon from './component/Moon.js'
 let renderer, camera, container, stats
 let earth = new Earth()
+let moon = new Moon()
 
 let init = () => {
   // 初始化灯光和场景
@@ -31,9 +33,11 @@ let init = () => {
 }
 let load = () => {
   earth.init()
+  moon.init()
 }
 let run = () => {
   earth.update()
+  moon.update()
   renderer.render( scene, camera)
   requestAnimationFrame(run)
 }
