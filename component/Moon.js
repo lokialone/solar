@@ -1,7 +1,6 @@
-import * as THREE from 'three';
-import scene from './scene.js';
+import * as THREE from '../'
 
-class Earth {
+class Moon {
   constructor() {
     this.animating = false
   }
@@ -12,7 +11,7 @@ class Earth {
       this.sphere = ''
       textureLoader.load(earthImage, (texture) => {
           material = new THREE.MeshBasicMaterial({ map: texture})
-          let geometry = new THREE.SphereGeometry(0.5, 32, 32)
+          let geometry = new THREE.SphereGeometry(0.3, 32, 32)
           this.sphere = new THREE.Mesh(geometry, material)
           this.sphere.rotation.x = Math.PI / 5
           this.sphere.rotation.y = Math.PI / 5
@@ -26,6 +25,10 @@ class Earth {
       this.sphere.rotation.y += 0.01
     }
   }
+
 }
 
-export default Earth
+
+
+
+export default Moon
