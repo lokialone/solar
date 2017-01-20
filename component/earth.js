@@ -32,9 +32,9 @@ class Earth {
         this.sphere.rotation.x = Math.PI / 5
         this.sphere.rotation.y = Math.PI / 5
         this.scene.add(this.sphere)
-        this.run()
+        // this.run()
     })
-    
+
   }
 
   run() {
@@ -49,9 +49,9 @@ class Earth {
 
   render() {
     this.renderer.render(this.scene, this.camera)
-   
+
   }
-  
+
 }
 
 export default Earth

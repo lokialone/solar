@@ -22,12 +22,23 @@ class Earth {
             scene.add(this.sphere)
         })
 
+
     }
     update() {
         if (this.animating) {
             this.sphere.rotation.y += 0.01
         }
     }
+
+    getObject() {
+      return this.sphere
+    }
+
+    checkReady() {
+      return this.animating
+    }
+
+
 }
 
 export default Earth
