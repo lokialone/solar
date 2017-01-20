@@ -25,7 +25,7 @@ class Moon{
     }
     update() {
         if (this.animating) {
-            this.sphere.rotation.y += 0.01
+            this.sphere.rotation.y += 0.005
         }
     }
     getObject() {

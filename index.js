@@ -35,46 +35,30 @@ let init = () => {
     scene.add(light)
     earth_moon_group = new THREE.Group()
     earth_moon_group.add(light)
-    var geometry = new THREE.BoxBufferGeometry( 0.5, 0.5, 0.5 );
-    var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-
-    cubeA = new THREE.Mesh( geometry, material )
-    cubeA.position.set( 0, 0, 0 )
-
-    var cubeB = new THREE.Mesh( geometry, material )
-    cubeA.position.set( -0.8, -0.8, 0 )
-    earth_moon_group.add(cubeA)
-    earth_moon_group.add(cubeB)
     scene.add(earth_moon_group)
-    cubeA.quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+
 
 }
 let load = () => {
-    // earth.init()
-    // moon.init()
-    // setTimeout(() => {
-    //   earth_moon_group.add(earth.getObject())
-    //   earth_moon_group.add(moon.getObject())
-    //   scene.add(earth_moon_group)
-    // }, 2000)
+    earth.init()
+    moon.init()
+    setTimeout(() => {
+      earth_moon_group.add(earth.getObject())
+      earth_moon_group.add(moon.getObject())
+      scene.add(earth_moon_group)
+    }, 1000)
 }
 let run = () => {
-    // earth.update()
-    // moon.update()
-    // if(earth.checkReady() && moon.checkReady()){
-    //   earth_moon_group.rotation.y += 0.05
-    //   // console.log(earth_moon_group.rotation.y);
-    // }
-
-    earth_moon_group.rotation.y += 0.005
-    cubeA.rotation.y += 0.01
+    if(earth.checkReady() && moon.checkReady()){
+      earth.update()
+      moon.update()
+      earth_moon_group.rotation.y += 0.005
+    }
     renderer.render(scene, camera)
     requestAnimationFrame(run)
 }
 
-let moon_revolve = () => {
-    earth_moon_group.rotation.y+=0.01
-}
+
 
 init()
 load()
