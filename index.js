@@ -5,7 +5,7 @@ import * as THREE from './libs/OrbitControl.js'
 import scene from './component/scene'
 import Earth from './component/earth_new.js'
 import Moon from './component/Moon.js'
-let renderer, camera, container, stats
+let renderer, camera, container, stats, radius = 2, theta = 0
 let earth = new Earth()
 let moon = new Moon()
 let earth_moon_group = new THREE.Group()
@@ -52,6 +52,13 @@ let load = () => {
 
 }
 let run = () => {
+    //camera
+    theta += 0.1;
+    camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
+    camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
+    camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
+    camera.lookAt(scene.position);
+
     if (earth.checkReady() && moon.checkReady()) {
         earth.update()
         moon.update()
