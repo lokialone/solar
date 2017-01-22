@@ -14,7 +14,7 @@
 4 verbose stack     at tryToString (fs.js:455:3)
 4 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:442:12)
 5 verbose cwd /Users/lokalone/code/tech/webGL/lokid/solar
-6 error Darwin 16.1.0
+6 error Darwin 16.3.0
 7 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "dev"
 8 error node v6.3.1
 9 error npm  v3.10.8
