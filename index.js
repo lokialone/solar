@@ -1,11 +1,12 @@
 import './libs/requestAnimationFrame'
 import './libs/stats'
-import * as THREE from './libs/OrbitControl.js'
-// import './libs/OrbitControl.js'
+import * as THREE from './libs/three'
+import OrbitControl from './libs/OrbitControl.js'
 import scene from './component/scene'
 import Earth from './component/earth_new.js'
 import Moon from './component/Moon.js'
-let renderer, camera, container, stats, radius = 2, theta = 0
+OrbitControl(THREE)
+let renderer, camera, container, stats, radius = 5, theta = 0
 let earth = new Earth()
 let moon = new Moon()
 let earth_moon_group = new THREE.Group()
@@ -20,12 +21,12 @@ let init = () => {
     renderer.setSize(container.offsetWidth, container.offsetHeight)
     container.appendChild(renderer.domElement)
 
-    // scene =
+    // camera
     camera = new THREE.PerspectiveCamera(45,
-        container.offsetWidth / container.offsetHeight, 1, 1000)
-    camera.position.set(0, 0, 3)
+        container.offsetWidth / container.offsetHeight, 1, 10000)
+    camera.position.set(0, 0, 5)
     let light = new THREE.DirectionalLight(0xffffff, 1.5)
-    light.position.set(0, 0, 1)
+    light.position.set(0, 0, 10)
     scene.add(light)
 
     // controls
@@ -53,11 +54,11 @@ let load = () => {
 }
 let run = () => {
     //camera
-    theta += 0.1;
-    camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
-    camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
-    camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
-    camera.lookAt(scene.position);
+    // theta += 0.1;
+    // camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
+    // camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
+    // camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
+    // camera.lookAt(scene.position);
 
     if (earth.checkReady() && moon.checkReady()) {
         earth.update()
