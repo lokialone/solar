@@ -1,22 +1,16 @@
-// import './demo.js'
-// import Earth from './component/earth.js'
-// let container = document.getElementById('container')
-// let earth = new Earth(container)
-// earth.init()
-// import Earth from './component/earth_new'
 import './libs/requestAnimationFrame'
 import './libs/stats'
-import * as THREE from './libs/three.js'
-// import THREE from 'three.js'
-// let THREE = require('three')
+import * as THREE from './libs/OrbitControl.js'
+// import './libs/OrbitControl.js'
 import scene from './component/scene'
 import Earth from './component/earth_new.js'
 import Moon from './component/Moon.js'
 let renderer, camera, container, stats
 let earth = new Earth()
 let moon = new Moon()
-let earth_moon_group = ''
+let earth_moon_group = new THREE.Group()
 let cubeA = ''
+let controls = ''
 let init = () => {
     // 初始化灯光和场景
     container = document.getElementById('container')
@@ -33,7 +27,13 @@ let init = () => {
     let light = new THREE.DirectionalLight(0xffffff, 1.5)
     light.position.set(0, 0, 1)
     scene.add(light)
-    earth_moon_group = new THREE.Group()
+
+    // controls
+    controls = new THREE.OrbitControls(camera, renderer.domElement)
+    // controls.minDistance = 20
+    // controls.maxDistance = 50
+    controls.maxPolarAngle = Math.PI / 2
+
     earth_moon_group.add(light)
     scene.add(earth_moon_group)
 
@@ -42,23 +42,24 @@ let init = () => {
 let load = () => {
     earth.init()
     moon.init()
-    setTimeout(() => {
-      earth_moon_group.add(earth.getObject())
-      earth_moon_group.add(moon.getObject())
-      scene.add(earth_moon_group)
-    }, 1000)
+    earth.getObject().then((sphere) => {
+        earth_moon_group.add(sphere)
+    })
+    moon.getObject().then((sphere) => {
+        earth_moon_group.add(sphere)
+    })
+    scene.add(earth_moon_group)
+
 }
 let run = () => {
-    if(earth.checkReady() && moon.checkReady()){
-      earth.update()
-      moon.update()
-      earth_moon_group.rotation.y += 0.005
+    if (earth.checkReady() && moon.checkReady()) {
+        earth.update()
+        moon.update()
+        earth_moon_group.rotation.y += 0.005
     }
     renderer.render(scene, camera)
     requestAnimationFrame(run)
 }
-
-
 
 init()
 load()

@@ -1,5 +1,6 @@
 import * as THREE from '../libs/three.js'
 import scene from './scene.js'
+import event from './Event.js'
 class Moon{
     constructor() {
         this.animating = false
@@ -19,7 +20,7 @@ class Moon{
             this.sphere.rotation.y = Math.PI
             this.sphere.position.set(0.9, 0, 0)
             this.animating = true
-            scene.add(this.sphere)
+              event.emit('earthTextureLoaded')
         })
 
     }
@@ -27,9 +28,13 @@ class Moon{
         if (this.animating) {
             this.sphere.rotation.y += 0.005
         }
-    }
+    } 
     getObject() {
-      return this.sphere
+      return new Promise((resolve, reject) => {
+          event.on('earthTextureLoaded', () => {
+            resolve(this.sphere)
+          })
+        })
     }
 
     checkReady() {

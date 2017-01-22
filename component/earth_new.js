@@ -1,11 +1,12 @@
 import * as THREE from '../libs/three.js'
 import scene from './scene.js'
-
+import event from './Event.js'
 class Earth {
     constructor() {
         this.animating = false
     }
     init() {
+
         let earthImage = 'assets/images/earth_surface_2048.jpg'
         let textureLoader = new THREE.TextureLoader()
         let material = ''
@@ -19,7 +20,8 @@ class Earth {
             this.sphere.rotation.x = Math.PI / 5
             this.sphere.rotation.y = Math.PI / 5
             this.animating = true
-            scene.add(this.sphere)
+            event.emit('moonTextureLoaded')
+            // scene.add(this.sphere)
         })
 
 
@@ -31,7 +33,11 @@ class Earth {
     }
 
     getObject() {
-      return this.sphere
+      return new Promise((resolve, reject) => {
+        event.on('moonTextureLoaded', () => {
+          resolve(this.sphere)
+        })
+      })
     }
 
     checkReady() {
