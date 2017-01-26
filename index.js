@@ -3,15 +3,9 @@ import './libs/stats'
 import * as THREE from './libs/three'
 import OrbitControl from './libs/OrbitControl.js'
 import scene from './component/scene'
-import Earth from './component/earth_new.js'
-import Moon from './component/Moon.js'
+
 OrbitControl(THREE)
-let renderer, camera, container, stats, radius = 5, theta = 0
-let earth = new Earth()
-let moon = new Moon()
-let earth_moon_group = new THREE.Group()
-let cubeA = ''
-let controls = ''
+let renderer, camera, container, stats, mesh
 let init = () => {
     // 初始化灯光和场景
     container = document.getElementById('container')
@@ -24,53 +18,66 @@ let init = () => {
     // camera
     camera = new THREE.PerspectiveCamera(45,
         container.offsetWidth / container.offsetHeight, 1, 10000)
-    camera.position.set(0, 0, 5)
+    camera.position.set(0, 0, 200)
     let light = new THREE.DirectionalLight(0xffffff, 1.5)
     light.position.set(0, 0, 10)
     scene.add(light)
 
-    // controls
-    controls = new THREE.OrbitControls(camera, renderer.domElement)
-    // controls.minDistance = 20
-    // controls.maxDistance = 50
-    controls.maxPolarAngle = Math.PI / 2
-
-    earth_moon_group.add(light)
-    scene.add(earth_moon_group)
-
-
+    let geometry = new THREE.BoxBufferGeometry( 50, 50, 50 )
+    let material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+    mesh = new THREE.Mesh(geometry, material)
+    mesh.rotation.x = Math.PI / 5
+    mesh.rotation.y = Math.PI / 5
+    mesh.speed = 0.05
+    scene.add(mesh)
 }
 let load = () => {
-    earth.init()
-    moon.init()
-    earth.getObject().then((sphere) => {
-        earth_moon_group.add(sphere)
-    })
-    moon.getObject().then((sphere) => {
-        earth_moon_group.add(sphere)
-    })
-    scene.add(earth_moon_group)
+
 
 }
 let run = () => {
-    //camera
-    // theta += 0.1;
-    // camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
-    // camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
-    // camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
-    // camera.lookAt(scene.position);
-
-    if (earth.checkReady() && moon.checkReady()) {
-        earth.update()
-        moon.update()
-        earth_moon_group.rotation.y += 0.005
-    }
+    let z = mesh.position.z
+    mesh.position.set(0, 0, z - mesh.speed)
     renderer.render(scene, camera)
     requestAnimationFrame(run)
 }
 
+let initInput = () => {
+		    window.addEventListener( 'keydown', function( event ) {
+			    switch ( event.keyCode ) {
+				    // <-
+				    case 37:
+              console.log('<--')
+              mesh.rotation.y = Math.PI/2
+				    break
+				    // up
+				    case 38:
+              console.log('up')
+					    mesh.rotation.x = Math.PI/2
+              break
+            //->
+            case 39:
+              console.log('-->')
+              mesh.rotation.z = -Math.PI/2
+              break
+            //down
+            case 40:
+              console.log('down')
+              mesh.rotation.x = -Math.PI/2
+				    break
+			    }
+		    }, false );
+		    window.addEventListener( 'keyup', function( event ) {
+          console.log('keyup');
+          // mesh.rotation.y  = 0
+			    // armMovement = 0;
+		    }, false );
+		}
+
+
 init()
 load()
+initInput()
 run()
 
 //轨迹
