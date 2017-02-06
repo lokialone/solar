@@ -24,7 +24,7 @@ let init = () => {
     // camera
     camera = new THREE.PerspectiveCamera(45,
         container.offsetWidth / container.offsetHeight, 1, 10000)
-    camera.position.set(0, 0, 5)
+    camera.position.set(0, 0, 3)
     let light = new THREE.DirectionalLight(0xffffff, 1.5)
     light.position.set(0, 0, 10)
     scene.add(light)
