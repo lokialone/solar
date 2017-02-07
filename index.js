@@ -5,7 +5,7 @@ import OrbitControl from './libs/OrbitControl.js'
 import scene from './component/scene'
 
 OrbitControl(THREE)
-let renderer, camera, container, stats, mesh
+let renderer, camera, container, stats, mesh, direction
 let init = () => {
     // 初始化灯光和场景
     container = document.getElementById('container')
@@ -26,18 +26,21 @@ let init = () => {
     let geometry = new THREE.BoxBufferGeometry( 50, 50, 50 )
     let material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
     mesh = new THREE.Mesh(geometry, material)
-    mesh.rotation.x = Math.PI / 5
-    mesh.rotation.y = Math.PI / 5
     mesh.speed = 0.05
+    mesh.rotation.x = 0
+    mesh.rotation.y = 0
+    mesh.rotation.z = 0
     scene.add(mesh)
+    direction = new THREE.Vector3(0,0,-1)
 }
 let load = () => {
 
 
 }
 let run = () => {
-    let z = mesh.position.z
-    mesh.position.set(0, 0, z - mesh.speed)
+    // let z = mesh.position.z
+    // mesh.position.set(0, 0, z - mesh.speed)
+    camera.lookAt(scene.position);
     renderer.render(scene, camera)
     requestAnimationFrame(run)
 }
@@ -47,33 +50,38 @@ let initInput = () => {
 			    switch ( event.keyCode ) {
 				    // <-
 				    case 37:
+
               console.log('<--')
-              mesh.rotation.y = Math.PI/2
+              mesh.rotation.y += Math.PI/2
+              break;
 				    break
 				    // up
 				    case 38:
               console.log('up')
-					    mesh.rotation.x = Math.PI/2
-              break
+					    mesh.rotation.x -= Math.PI/2
+              break;
             //->
             case 39:
               console.log('-->')
-              mesh.rotation.z = -Math.PI/2
-              break
+              mesh.rotation.y -= Math.PI/2
+
+              break;
             //down
             case 40:
               console.log('down')
-              mesh.rotation.x = -Math.PI/2
-				    break
+              mesh.rotation.x += Math.PI/2
+				    break;
 			    }
+          console.log(mesh.rotation);
 		    }, false );
 		    window.addEventListener( 'keyup', function( event ) {
           console.log('keyup');
-          // mesh.rotation.y  = 0
-			    // armMovement = 0;
 		    }, false );
 		}
 
+let rotation = function(currentDirection, controlDirection) {
+
+}
 
 init()
 load()
