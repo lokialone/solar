@@ -21,14 +21,17 @@ let init = () => {
     camera.position.set(0, 0, 200)
     let light = new THREE.DirectionalLight(0xffffff, 1.5)
     light.position.set(0, 0, 10)
+
+    scene.fog = new THREE.Fog( 0xffffff, 1, 10000 );
     scene.add(light)
 
     let geometry = new THREE.BoxBufferGeometry( 50, 50, 50 )
-    let material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+    let material = new THREE.MeshNormalMaterial()
+
     mesh = new THREE.Mesh(geometry, material)
     mesh.speed = 0.05
-    mesh.rotation.x = 0
-    mesh.rotation.y = 0
+    mesh.rotation.x = Math.PI / 5
+    mesh.rotation.y = Math.PI / 5
     mesh.rotation.z = 0
     scene.add(mesh)
     direction = new THREE.Vector3(0,0,-1)
@@ -58,21 +61,22 @@ let initInput = () => {
 				    // up
 				    case 38:
               console.log('up')
-					    mesh.rotation.x -= Math.PI/2
+					    mesh.rotation.x += Math.PI/2
               break;
             //->
             case 39:
               console.log('-->')
-              mesh.rotation.y -= Math.PI/2
+              mesh.rotation.y += -Math.PI/2
 
               break;
             //down
             case 40:
               console.log('down')
-              mesh.rotation.x += Math.PI/2
+              mesh.rotation.x += -Math.PI/2
 				    break;
 			    }
           console.log(mesh.rotation);
+          renderer.render(scene, camera)
 		    }, false );
 		    window.addEventListener( 'keyup', function( event ) {
           console.log('keyup');
